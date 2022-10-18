@@ -4,10 +4,6 @@ import re
 import getpass
 
 
-PLAYERS = PLAYERS.copy()
-TEAMS = TEAMS.copy()
-
-
 def clean_data(players):
     cleaned = []
     for player in players:
@@ -27,8 +23,10 @@ def balance_teams(players, teams):
     experienced = player_experience(players, True)
     inexperienced = player_experience(players, False)
 
-    num_players_team = len(players)  / len(teams)  # not sure where to use this
+    num_players_team = len(players)  / len(teams)
     experienced_player_per_team = len(experienced) / len(teams)
+    inexperienced_player_per_team = len(inexperienced) / len(teams)
+
     
     for counter in range(len(teams)):
         teams[counter - 1] = []
@@ -41,9 +39,10 @@ def balance_teams(players, teams):
 
 def balance_team_draft(players, teams, limit_per_team):
     for counter in range(len(teams)):
-        for player in players:
+        for player in players.copy():
             if len(teams[counter - 1]) < limit_per_team:
                 teams[counter - 1].append(player)
+                print(player['name'])
                 players.remove(player)
             else:
                 break
@@ -133,7 +132,7 @@ def display_continue():
 
 
 if __name__ == "__main__":
-    sorted_teams = balance_teams(clean_data(PLAYERS), TEAMS)
+    sorted_teams = balance_teams(clean_data(PLAYERS), TEAMS.copy())
     while True:
         menu_choice = display_menu()
         
