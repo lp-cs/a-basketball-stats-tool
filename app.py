@@ -25,7 +25,7 @@ def balance_teams(players, teams):
 
     num_players_team = len(players)  / len(teams)
     experienced_player_per_team = len(experienced) / len(teams)
-    inexperienced_player_per_team = len(inexperienced) / len(teams)
+    # inexperienced_player_per_team = len(inexperienced) / len(teams)
 
     
     for counter in range(len(teams)):
@@ -42,7 +42,6 @@ def balance_team_draft(players, teams, limit_per_team):
         for player in players.copy():
             if len(teams[counter - 1]) < limit_per_team:
                 teams[counter - 1].append(player)
-                print(player['name'])
                 players.remove(player)
             else:
                 break
@@ -116,7 +115,6 @@ def display_team_stats(players,team_name):
             guardians = set(player['guardians'])
             guardian_list = set(guardian_list).union(guardians)
 
-            # guardians.add(guardian)
         for guardian in guardian_list:
             guardian_list_display += guardian + ", "
         
